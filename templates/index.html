@@ -1,0 +1,64 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/new_blah.css' %}">
+    <style>
+        {!-- 为每一个相同的class定义一个style --}
+        .salary_and_num {
+            color:blue;
+            margin:20px;
+            padding:20px;
+        }
+        .paginator {
+            font-family:arial;
+            color:black;
+            font-size:22px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{% static 'images/blah.png' %}">
+        <ul class="nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Site</a></li>
+            <li><a href="#">Other</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <h2>职位</h2>
+        <ul class="articles">
+            {% for item in ArtInfo %}
+                <li>
+                    <img src="{% static 'images/0001.jpg' %}" width="100" height="91">
+                    <div class="article-info">
+                        <!-- 公司的链接会在新的窗口显示：target="_blank"实现该功能-->
+                        <h3><a href="{{ item.link }}" target="_blank">{{ item.company }}</a></h3>
+                        <p class="meta-info">
+                            <span class="salary_and_num">薪资：{{ item.salary }}</span>
+                            <span class="salary_and_num">招聘人数：{{ item.num }}</span>
+                        </p>
+                        <p class="description">{{ item.title }}</p>
+                    </div>
+                    <div class="rate">
+                        <span class="rate-score">{{ item.link }}</span>
+                    </div>
+                </li>
+            {% endfor %}
+            <div style="text-align:center">
+                {% if ArtInfo.has_previous %}
+                    <a class="paginator" href="?page={{ ArtInfo.previous_page_number }}">< Pre </a>
+                {% endif %}
+                <a class="paginator">{{ ArtInfo.number }} of </a>
+                <a class="paginator" href="?page={{ ArtInfo.paginator.num_pages }}">{{ ArtInfo.paginator.num_pages }}</a>
+                {% if ArtInfo.has_next %}
+                    <a class="paginator" href="?page={{ ArtInfo.next_page_number }}">Next ></a>
+                {% endif %}
+            </div>
+        </ul>
+    </div>
+    <div class="footer">
+        <p>&copy; Mugglecoding</p>
+    </div>
+</body>
+</html>
