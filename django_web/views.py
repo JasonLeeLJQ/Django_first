@@ -26,4 +26,4 @@ def index(request):
     # print(arti_info[0].title)
     # print(arti_info[0].link)
 
-    return render(request,'index.html',context)
+    return render(request,'semanticwb.html',context)

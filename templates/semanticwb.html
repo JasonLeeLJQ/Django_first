@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>A AWESOME WEB !</title>
+    <link rel="stylesheet" href="{% static 'css/semantic.css' %}">
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/semantic.js' %}"></script>
+  </head>
+  <body>
+    <div class="ui thin visible left sidebar inverted vertical menu">
+      <div class="header item">
+        <img src="{% static 'images/logo2.png' %}">
+      </div>
+      <div class="item">
+        Doucument
+        <i class="browser icon"></i>
+      </div>
+      <div class="item">
+        Charts
+        <i class="bar chart icon"></i>
+      </div>
+      <div class="item">
+        Others
+        <i class="idea icon"></i>
+      </div>
+
+    </div>
+    <div class="pusher">
+
+
+      <div class="ui menu">
+        <div class="header item" id="menu">
+          Menu
+          <i class="content icon"></i>
+        </div>
+        <div class="item">
+          About us
+        </div>
+        <div class="item">
+          Location
+        </div>
+        <div class="item">
+          Others
+        </div>
+
+      </div>
+      <div class="ui container">
+        <div class="ui divided items">
+          {% for item in ArtInfo %}
+            <div class="item">
+              <div class="content">
+                <div class="header">
+                  {{ item.company }}
+                </div>
+                <div class="description">
+                  <p>
+                    {{ item.link }}
+                  </p>
+                </div>
+                <div class="extra">
+                  <div class="ui label">
+                    {{ item.salary }}
+                  </div>
+                  <div class="ui label">
+                    {{ item.num }}
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+          {% endfor %}
+
+        </div>
+        <div class="ui pagination menu">
+          {% if ArtInfo.has_previous %}
+            <a class="item" href="?page={{ ArtInfo.previous_page_number }}"> < </a>
+          {% endif %}
+          <div class="disable item">
+            page {{ ArtInfo.number }} of {{ ArtInfo.paginator.num_pages }}
+          </div>
+          {% if ArtInfo.has_next %}
+            <a class="item" href="?page={{ ArtInfo.next_page_number }}"> > </a>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+    <script>
+      $('#menu').click(function () {
+        $('.ui.sidebar').sidebar('toggle');
+      });
+    </script>
+
+  </body>
+</html>
